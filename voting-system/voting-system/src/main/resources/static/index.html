@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VoteSecure – Online Voting System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">🗳️ Vote<span>Secure</span></div>
+  <nav>
+    <button class="tab active" data-tab="elections">Elections</button>
+    <button class="tab" data-tab="results">Live Results</button>
+    <button class="tab" data-tab="register">Register</button>
+    <button class="tab" data-tab="verify">Verify Receipt</button>
+    <button class="tab" data-tab="admin">Admin</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ELECTIONS -->
+  <section id="elections" class="panel active">
+    <div class="toolbar">
+      <input id="search" placeholder="Search elections…">
+      <select id="category">
+        <option value="">All categories</option>
+        <option>Student</option><option>Poll</option><option>Referendum</option><option>Government</option><option>General</option>
+      </select>
+      <input id="myVoterId" placeholder="Your Voter ID (e.g. VT-DEMO01)">
+    </div>
+    <div id="electionGrid" class="grid"></div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="panel">
+    <div class="toolbar"><select id="resultSelect"></select><span class="muted">Auto-refreshes every 5s</span></div>
+    <div id="resultBox" class="card"></div>
+  </section>
+
+  <!-- REGISTER -->
+  <section id="register" class="panel">
+    <form id="regForm" class="card narrow">
+      <h2>Voter Registration</h2>
+      <label>Full name<input id="regName" required></label>
+      <label>Email<input id="regEmail" type="email" required></label>
+      <button class="btn">Get my Voter ID</button>
+      <p class="muted">Already registered? Enter the same email to retrieve your Voter ID.</p>
+      <div id="regOut"></div>
+    </form>
+  </section>
+
+  <!-- VERIFY -->
+  <section id="verify" class="panel">
+    <form id="verifyForm" class="card narrow">
+      <h2>Verify your Vote Receipt</h2>
+      <label>Receipt code<input id="receiptInput" placeholder="VR-XXXXXXXX" required></label>
+      <button class="btn">Verify</button>
+      <div id="verifyOut"></div>
+    </form>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin" class="panel">
+    <div id="statCards" class="stats"></div>
+    <div class="two-col">
+      <form id="createForm" class="card">
+        <h2>Create Election</h2>
+        <label>Title<input id="cTitle" required></label>
+        <label>Description<input id="cDesc"></label>
+        <label>Category
+          <select id="cCat"><option>General</option><option>Student</option><option>Poll</option><option>Referendum</option><option>Government</option></select>
+        </label>
+        <div class="row">
+          <label>Starts<input id="cStart" type="datetime-local" required></label>
+          <label>Ends<input id="cEnd" type="datetime-local" required></label>
+        </div>
+        <label>Candidates (one per line: <code>Name | Party</code>)
+          <textarea id="cCands" rows="4" required></textarea></label>
+        <button class="btn">Create</button>
+      </form>
+      <div class="card">
+        <h2>Manage Elections</h2>
+        <div id="adminElections"></div>
+        <h2 style="margin-top:20px">Audit Log <small class="muted">(voter IDs masked)</small></h2>
+        <div id="auditLog"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- VOTE MODAL -->
+<dialog id="voteModal">
+  <div id="voteBody"></div>
+</dialog>
+<div id="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
